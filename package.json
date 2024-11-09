@@ -1,0 +1,19 @@
+{
+  "name": "cuisine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "openai": "^4.71.1",
+    "sharp": "^0.33.5",
+    "strapi-sdk-js": "^2.3.3"
+  }
+}
