@@ -8,30 +8,10 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-async function processAndConvertImage(imagePath) {
-  try {
-    const processedImageBuffer = await sharp(imagePath)
-      .jpeg({
-        quality: 80,
-        mozjpeg: true,
-      })
-      .resize(1024, 1024, {
-        fit: "inside",
-        withoutEnlargement: true,
-      })
-      .toBuffer();
 
-    return processedImageBuffer.toString("base64");
-  } catch (error) {
-    console.error("Erreur lors du traitement de l'image:", error);
-    throw error;
-  }
-}
-
-async function analyzeImageWithAssistant(imagePath) {
+async function analyzeImageWithAssistant() {
   try {
-    const imageBase64 = await processAndConvertImage(imagePath);
-    
+   
     // Créer un thread
     const thread = await client.beta.threads.create();
     
@@ -41,7 +21,7 @@ async function analyzeImageWithAssistant(imagePath) {
       content: [
         { type: "text", text: "Analyze this image json and answer in French" },
         { type: "image_url", image_url: {
-            url: `https://fatsecretfrance.fr/wp-content/uploads/2021/12/fatsecretfrance_245977340_4271925992855989_4004333819651907264_n.jpg.webp`,
+            url: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1-xplZI6QkstseRbdDfmGb78nzeoDXN8x3g&s`,
         } },
         
       ],
@@ -80,7 +60,7 @@ async function analyzeImageWithAssistant(imagePath) {
 
 async function main() {
   try {
-    const response = await analyzeImageWithAssistant("./image.jpeg");
+    const response = await analyzeImageWithAssistant();
     console.log("Assistant Response:", response.content[0].text.value
     );
     const json = JSON.parse(response.content[0].text.value);
